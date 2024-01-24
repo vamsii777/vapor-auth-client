@@ -4,7 +4,7 @@ struct OAuthConstants {
 
     static let oAuthProvider: String = "http://localhost:8090"
 
-    static let callbackURL: String = "http://localhost:8089"
+    static let callbackURL: String = "http://localhost:8089/oauth"
 
     static let stateVerifier: String = "\([UInt8].random(count: 32).hex)"
 
@@ -20,9 +20,9 @@ struct OAuthConstants {
 
     static let serverSessionCookieName = "vapor-session"
 
-    static let resourceServerUsername = "resource-1"
+    static let resourceServerUsername = "dewonderstruck"
 
-    static let resourceServerPassword = "resource-1-password"
+    static let resourceServerPassword = "pass@d"
 
     static let clientID = "Np2bX4LcD1K9jRiV7f8U"
 
