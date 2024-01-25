@@ -11,7 +11,7 @@ public func configure(_ app: Application) async throws {
     app.http.server.configuration.port = 8089
     
     let corsConfiguration = CORSMiddleware.Configuration(
-        allowedOrigin: .any(["http://auth.localhost:3000", "http://localhost:8090", "http://localhost:8089"]),
+        allowedOrigin: .any(["http://auth.dewonderstruck.com:3000", "http://auth.dewonderstruck.com:8090", "http://auth.dewonderstruck.com:8089"]),
         allowedMethods: [.GET, .POST, .PUT, .OPTIONS, .DELETE, .PATCH],
         allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent, .accessControlAllowOrigin, .accessControlAllowHeaders, .init("X-CSRF-TOKEN")],
         allowCredentials: true

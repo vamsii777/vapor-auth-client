@@ -20,8 +20,14 @@ class OAuthAuthorizer {
     func requestAuthorizationCode(_ request: Request) async throws -> Response {
         let codeChallenge = try self.generateCodeChallenge(from: codeVerifier)
 
+        // Ensure a session is created and persisted
+        request.session.data["state"] = stateVerifier
+        request.session.data["nonce"] = nonce
+        // You can store any other necessary data in the session as needed
+
         let authorizationURL = URI(string: "\(oAuthProviderURL)/oauth/authorize?client_id=\(clientID)&redirect_uri=\(callbackURL.urlEncoded())/callback&response_type=code&scope=openid&state=\(stateVerifier)&code_challenge=\(codeChallenge)&code_challenge_method=S256&nonce=\(nonce)")
 
+        // The redirect response will include Set-Cookie headers for the session
         return request.redirect(to: authorizationURL.string)
     }
 
@@ -35,7 +41,7 @@ class OAuthAuthorizer {
 }
 
 extension String {
-    public func urlEncoded() -> String {
+    func urlEncoded() -> String {
         return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? self
     }
 }

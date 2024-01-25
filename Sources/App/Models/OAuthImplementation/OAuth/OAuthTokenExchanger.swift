@@ -16,6 +16,7 @@ class OAuthTokenExchanger {
     }
 
     func exchangeAuthorizationCodeForTokens(_ request: Request) async throws -> (accessToken: String?, refreshToken: String?, idToken: String?) {
+        
         guard let code: String = request.query["code"] else {
             throw OAuthClientErrors.authorizationFlowParameterMissing("Required query parameter 'code' missing.")
         }

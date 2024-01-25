@@ -2,9 +2,9 @@ import Vapor
 
 struct OAuthConstants { 
 
-    static let oAuthProvider: String = "http://localhost:8090"
+    static let oAuthProvider: String = "http://auth.dewonderstruck.com:8090"
 
-    static let callbackURL: String = "http://localhost:8089/oauth"
+    static let callbackURL: String = "http://auth.dewonderstruck.com:8089/oauth"
 
     static let stateVerifier: String = "\([UInt8].random(count: 32).hex)"
 
