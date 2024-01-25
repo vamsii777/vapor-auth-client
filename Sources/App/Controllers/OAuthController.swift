@@ -42,11 +42,12 @@ struct OAuthController: RouteCollection {
     func callback(_ request: Request) async throws -> Response {
         let token = try await oauthClient.exchangeAuthorizationCodeForTokens(request)
         
-        let view = try await request.view.render("protected-resource")
-        let response = try await view.encodeResponse(for: request)
-
+        // Prepare a JSON response with token information
+        var responseData: [String: String] = [:]
         if let accessToken = token.accessToken {
-            response.cookies["access_token"] = oauthClient.cookieManager.createCookie(
+            responseData["access_token"] = accessToken
+            // Create and set the access token cookie
+            request.cookies["access_token"] = oauthClient.cookieManager.createCookie(
                 withValue: accessToken,
                 forToken: .AccessToken,
                 environment: request.application.environment
@@ -54,7 +55,9 @@ struct OAuthController: RouteCollection {
         }
 
         if let refreshToken = token.refreshToken {
-            response.cookies["refresh_token"] = oauthClient.cookieManager.createCookie(
+            responseData["refresh_token"] = refreshToken
+            // Create and set the refresh token cookie
+            request.cookies["refresh_token"] = oauthClient.cookieManager.createCookie(
                 withValue: refreshToken,
                 forToken: .RefreshToken,
                 environment: request.application.environment
@@ -62,13 +65,18 @@ struct OAuthController: RouteCollection {
         }
 
         if let idToken = token.idToken {
-            response.cookies["id_token"] = oauthClient.cookieManager.createCookie(
+            responseData["id_token"] = idToken
+            // Create and set the ID token cookie
+            request.cookies["id_token"] = oauthClient.cookieManager.createCookie(
                 withValue: idToken,
                 forToken: .IDToken,
                 environment: request.application.environment
             )
         }
 
+        // Encode the response data to JSON and return the response
+        let response = Response(status: .ok, headers: .init(), body: .init())
+        try response.content.encode(responseData, as: .json)
         return response
     }
 

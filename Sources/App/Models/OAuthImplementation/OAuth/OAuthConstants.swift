@@ -26,5 +26,6 @@ struct OAuthConstants {
 
     static let clientID = "Np2bX4LcD1K9jRiV7f8U"
 
-    static let clientSecret = "G5sR8qP3M0bY2vS6wT1xZ4fD7uL9mP0bY2vS6wT1x"
+    // Decrypt the clientSecret I'm lazy to do so
+    static let clientSecret = "$2b$12$xbcGrKKg8g/L7l63etB4WeilBeWc7IxC.6534CKIR3jmkkb24Kh72"
 }
