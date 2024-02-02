@@ -41,7 +41,6 @@ struct OAuthController: RouteCollection {
 
     func callback(_ request: Request) async throws -> Response {
         let token = try await oauthClient.exchangeAuthorizationCodeForTokens(request)
-        
         // Prepare a JSON response with token information
         var responseData: [String: String] = [:]
         if let accessToken = token.accessToken {

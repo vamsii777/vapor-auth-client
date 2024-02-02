@@ -15,7 +15,7 @@ public struct PayloadAccessToken: JWTPayload {
    public var jti: String
    public var aud: String
    public var sub: String?
-   public var scopes: [String]?
+   public var scopes: String?
    public var exp: Date
    public var iss: String
    public var iat: Date
@@ -23,7 +23,7 @@ public struct PayloadAccessToken: JWTPayload {
    init(jti: String,
         aud: String,
         sub: String? = nil,
-        scopes: [String]? = nil,
+        scopes: String? = nil,
         exp: Date,
         iss: String,
         iat: Date
